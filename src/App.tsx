@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import { MineModal } from "./components/MineModal";
+import { useGetQuestion } from "./hooks/useGetQuestion";
 
 const showMine = "mine";
 const showSafe = "safe";
@@ -18,6 +20,7 @@ function App() {
   ]);
   const [reveal, setReveal] = useState(["", "", "", "", "", "", "", "", ""]);
   const [message, setMessage] = useState("");
+  const { question, answers, getTriviaQuestion } = useGetQuestion();
   const isGameDisabled = message === "You lost!";
 
   const findMine = (isMine: boolean, mineIndex: number) => {
@@ -32,6 +35,7 @@ function App() {
 
       setReveal(newReveal);
       setMessage("You lost!");
+      getTriviaQuestion();
     } else {
       const newReveal = reveal.map((item, index) => {
         if (index === mineIndex) {
@@ -64,6 +68,7 @@ function App() {
       <button className="startGame" onClick={startGame}>
         Start game!
       </button>
+      <MineModal question={question} answers={answers} open={isGameDisabled} />
       <table>
         <tbody>
           <tr>
@@ -71,6 +76,7 @@ function App() {
               <button
                 onClick={() => findMine(mines[0], 0)}
                 disabled={isGameDisabled}
+                className="gameCell"
               >
                 {mines[0]}
                 {reveal[0]}
@@ -80,6 +86,7 @@ function App() {
               <button
                 onClick={() => findMine(mines[1], 1)}
                 disabled={isGameDisabled}
+                className="gameCell"
               >
                 {mines[1]}
                 {reveal[1]}
@@ -89,6 +96,7 @@ function App() {
               <button
                 onClick={() => findMine(mines[2], 2)}
                 disabled={isGameDisabled}
+                className="gameCell"
               >
                 {mines[2]}
                 {reveal[2]}
@@ -100,6 +108,7 @@ function App() {
               <button
                 onClick={() => findMine(mines[3], 3)}
                 disabled={isGameDisabled}
+                className="gameCell"
               >
                 {mines[3]}
                 {reveal[3]}
@@ -109,6 +118,7 @@ function App() {
               <button
                 onClick={() => findMine(mines[4], 4)}
                 disabled={isGameDisabled}
+                className="gameCell"
               >
                 {mines[4]}
                 {reveal[4]}
@@ -118,6 +128,7 @@ function App() {
               <button
                 onClick={() => findMine(mines[5], 5)}
                 disabled={isGameDisabled}
+                className="gameCell"
               >
                 {mines[5]}
                 {reveal[5]}
@@ -129,6 +140,7 @@ function App() {
               <button
                 onClick={() => findMine(mines[6], 6)}
                 disabled={isGameDisabled}
+                className="gameCell"
               >
                 {mines[6]}
                 {reveal[6]}
@@ -138,6 +150,7 @@ function App() {
               <button
                 onClick={() => findMine(mines[7], 7)}
                 disabled={isGameDisabled}
+                className="gameCell"
               >
                 {mines[7]}
                 {reveal[7]}
@@ -147,6 +160,7 @@ function App() {
               <button
                 onClick={() => findMine(mines[8], 8)}
                 disabled={isGameDisabled}
+                className="gameCell"
               >
                 {mines[8]}
                 {reveal[8]}
@@ -157,9 +171,14 @@ function App() {
       </table>
 
       <p>{message}</p>
-      <a href="https://www.flaticon.com/free-icons/mine" title="mine icons">
-        Mine icons created by Creaticca Creative Agency - Flaticon
-      </a>
+      <footer>
+        <a href="https://www.flaticon.com/free-icons/mine" title="mine icons">
+          Mine icons created by Creaticca Creative Agency - Flaticon
+        </a>
+        <a href="https://opentdb.com/api_config.php" title="Trivia Database">
+          Trivial API by the amazing Open Trivia Database
+        </a>
+      </footer>
     </main>
   );
 }

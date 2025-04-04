@@ -9,7 +9,7 @@ td {
   background-color: darkorange;
 }
 
-button {
+.gameCell {
   border: none;
   background-color: darkorange;
   height: 3rem;
@@ -25,4 +25,10 @@ a {
   height: 3rem;
   width: 5rem;
   margin: 1rem;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
