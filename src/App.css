@@ -1,0 +1,21 @@
+table {
+  border-collapse: collapse;
+}
+
+td {
+  border: black solid 2px;
+  height: 3rem;
+  width: 3rem;
+  background-color: darkorange;
+}
+
+button {
+  border: none;
+  background-color: darkorange;
+  height: 3rem;
+  width: 3rem;
+}
+
+a {
+  font-size: 0.5rem;
+}
