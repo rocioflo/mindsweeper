@@ -19,3 +19,10 @@ button {
 a {
   font-size: 0.5rem;
 }
+
+.startGame {
+  background-color: red;
+  height: 3rem;
+  width: 5rem;
+  margin: 1rem;
+}

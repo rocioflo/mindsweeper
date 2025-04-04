@@ -1,23 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 const showMine = "mine";
 const showSafe = "safe";
 
 function App() {
-  const [isMine] = useState([
-    false,
+  const [mines, setMines] = useState([
+    true,
+    true,
     true,
     false,
     false,
-    true,
     false,
     false,
-    true,
+    false,
     false,
   ]);
   const [reveal, setReveal] = useState(["", "", "", "", "", "", "", "", ""]);
   const [message, setMessage] = useState("");
+  const isGameDisabled = message === "You lost!";
 
   const findMine = (isMine: boolean, mineIndex: number) => {
     if (isMine) {
@@ -44,69 +45,110 @@ function App() {
     }
   };
 
-  console.log(reveal);
+  const startGame = () => {
+    setReveal(["", "", "", "", "", "", "", "", ""]);
+    setMessage("");
+
+    const shuffledMines = mines.sort(() => 0.5 - Math.random());
+
+    setMines(shuffledMines);
+  };
+
+  useEffect(() => {
+    startGame();
+  }, []);
 
   return (
     <main>
       <h1>MindSweeper</h1>
+      <button className="startGame" onClick={startGame}>
+        Start game!
+      </button>
       <table>
         <tbody>
           <tr>
             <td>
-              <button onClick={() => findMine(isMine[0], 0)}>
-                {isMine[0]}
+              <button
+                onClick={() => findMine(mines[0], 0)}
+                disabled={isGameDisabled}
+              >
+                {mines[0]}
                 {reveal[0]}
               </button>
             </td>
             <td>
-              <button onClick={() => findMine(isMine[1], 1)}>
-                {isMine[1]}
+              <button
+                onClick={() => findMine(mines[1], 1)}
+                disabled={isGameDisabled}
+              >
+                {mines[1]}
                 {reveal[1]}
               </button>
             </td>
             <td>
-              <button onClick={() => findMine(isMine[2], 2)}>
-                {isMine[2]}
+              <button
+                onClick={() => findMine(mines[2], 2)}
+                disabled={isGameDisabled}
+              >
+                {mines[2]}
                 {reveal[2]}
               </button>
             </td>
           </tr>
           <tr>
             <td>
-              <button onClick={() => findMine(isMine[3], 3)}>
-                {isMine[3]}
+              <button
+                onClick={() => findMine(mines[3], 3)}
+                disabled={isGameDisabled}
+              >
+                {mines[3]}
                 {reveal[3]}
               </button>
             </td>
             <td>
-              <button onClick={() => findMine(isMine[4], 4)}>
-                {isMine[4]}
+              <button
+                onClick={() => findMine(mines[4], 4)}
+                disabled={isGameDisabled}
+              >
+                {mines[4]}
                 {reveal[4]}
               </button>
             </td>
             <td>
-              <button onClick={() => findMine(isMine[5], 5)}>
-                {isMine[5]}
+              <button
+                onClick={() => findMine(mines[5], 5)}
+                disabled={isGameDisabled}
+              >
+                {mines[5]}
                 {reveal[5]}
               </button>
             </td>
           </tr>
           <tr>
             <td>
-              <button onClick={() => findMine(isMine[6], 6)}>
-                {isMine[6]}
+              <button
+                onClick={() => findMine(mines[6], 6)}
+                disabled={isGameDisabled}
+              >
+                {mines[6]}
                 {reveal[6]}
               </button>
             </td>
             <td>
-              <button onClick={() => findMine(isMine[7], 7)}>
-                {isMine[7]}
+              <button
+                onClick={() => findMine(mines[7], 7)}
+                disabled={isGameDisabled}
+              >
+                {mines[7]}
                 {reveal[7]}
               </button>
             </td>
             <td>
-              <button onClick={() => findMine(isMine[8], 8)}>
-                {isMine[8]}
+              <button
+                onClick={() => findMine(mines[8], 8)}
+                disabled={isGameDisabled}
+              >
+                {mines[8]}
                 {reveal[8]}
               </button>
             </td>
