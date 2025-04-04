@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 
 const showMine = "mine";
 const showSafe = "safe";
 
 function App() {
-  const [isMine, setIsMine] = useState([
+  const [isMine] = useState([
     false,
     true,
     false,
