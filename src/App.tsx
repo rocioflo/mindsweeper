@@ -19,9 +19,21 @@ function App() {
     false,
   ]);
   const [reveal, setReveal] = useState(["", "", "", "", "", "", "", "", ""]);
+  const [isGameHalted, setIsGameHalted] = useState(false);
   const [message, setMessage] = useState("");
-  const { question, answers, getTriviaQuestion } = useGetQuestion();
-  const isGameDisabled = message === "You lost!";
+  const { question, answers, getTriviaQuestion, correctAnswer } =
+    useGetQuestion();
+  const isGameDisabled = isGameHalted;
+
+  const startGame = () => {
+    setReveal(["", "", "", "", "", "", "", "", ""]);
+    setIsGameHalted(false);
+    setMessage("");
+
+    const shuffledMines = mines.sort(() => 0.5 - Math.random());
+
+    setMines(shuffledMines);
+  };
 
   const findMine = (isMine: boolean, mineIndex: number) => {
     if (isMine) {
@@ -34,7 +46,7 @@ function App() {
       });
 
       setReveal(newReveal);
-      setMessage("You lost!");
+      setIsGameHalted(true);
       getTriviaQuestion();
     } else {
       const newReveal = reveal.map((item, index) => {
@@ -49,13 +61,12 @@ function App() {
     }
   };
 
-  const startGame = () => {
-    setReveal(["", "", "", "", "", "", "", "", ""]);
-    setMessage("");
-
-    const shuffledMines = mines.sort(() => 0.5 - Math.random());
-
-    setMines(shuffledMines);
+  const chooseTrivialOption = (answer: string) => {
+    if (answer === correctAnswer) {
+      setIsGameHalted(false);
+    } else {
+      setMessage("You lost!");
+    }
   };
 
   useEffect(() => {
@@ -68,7 +79,12 @@ function App() {
       <button className="startGame" onClick={startGame}>
         Start game!
       </button>
-      <MineModal question={question} answers={answers} open={isGameDisabled} />
+      <MineModal
+        question={question}
+        answers={answers}
+        open={isGameDisabled && message === ""}
+        chooseTrivialOption={chooseTrivialOption}
+      />
       <table>
         <tbody>
           <tr>
@@ -169,11 +185,17 @@ function App() {
           </tr>
         </tbody>
       </table>
-
       <p>{message}</p>
+
       <footer>
         <a href="https://www.flaticon.com/free-icons/mine" title="mine icons">
           Mine icons created by Creaticca Creative Agency - Flaticon
+        </a>
+        <a
+          href="https://www.flaticon.com/free-icons/security"
+          title="security icons"
+        >
+          Security icons created by Anggara - Flaticon
         </a>
         <a href="https://opentdb.com/api_config.php" title="Trivia Database">
           Trivial API by the amazing Open Trivia Database

@@ -1,15 +1,13 @@
 type QuestionDTO = {
   response_code: number;
-  results: [
-    {
-      type: string;
-      difficulty: string;
-      category: string;
-      question: string;
-      correct_answer: string;
-      incorrect_answers: string[];
-    }
-  ];
+  results: {
+    type: string;
+    difficulty: string;
+    category: string;
+    question: string;
+    correct_answer: string;
+    incorrect_answers: string[];
+  }[];
 };
 
 export const getQuestion = async () => {
